@@ -14,14 +14,38 @@ public class MapaLista {
     }
 
     public Carro pega(String placa){
-        return null;
+        for(Associacao associacao : this.associacoes){
+            if(placa.equals(associacao.getPlaca())){
+                return associacao.getCarro();
+            }
+        }
+        throw new IllegalArgumentException("Chave não existe.");
     }
 
     public void remove(String placa){
-
+        if(this.contemChave(placa)){
+            for(Integer i = 0; i < this.associacoes.size(); i++){
+                Associacao associacao = this.associacoes.get(i);
+                if(placa.equals(associacao.getPlaca())){
+                    this.associacoes.remove(i);
+                    break;
+                }
+            }
+        }else{
+            throw new IllegalArgumentException("Chave não existe.");
+        }
     }
 
     public boolean contemChave(String placa){
+        for(Associacao associacao : this.associacoes){
+            if(placa.equals(associacao.getPlaca())){
+                return true;
+            }
+        }
         return false;
+    }
+
+    public Integer tamanho(){
+        return this.associacoes.size();
     }
 }
